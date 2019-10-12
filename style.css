@@ -43,3 +43,8 @@ time, mark, audio, video {
 .cell {
   background-color: #0c072b;
 }
+
+#marker{
+  font-size: 7em;
+  color: white;
+}
