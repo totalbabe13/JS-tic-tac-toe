@@ -44,7 +44,7 @@ time, mark, audio, video {
   background-color: #0c072b;
 }
 
-#marker{
+.marker{
   font-size: 7em;
   color: white;
 }
