@@ -1,27 +1,23 @@
-//Objects ??
-let cellA1 = document.getElementById('a1')
-let cellA2 = document.getElementById('a2')
-let cellA3 = document.getElementById('a3')
-let cellB1 = document.getElementById('b1')
-let cellB2 = document.getElementById('b2')
-let cellB3 = document.getElementById('b3')
-let cellC1 = document.getElementById('c1')
-let cellC2 = document.getElementById('c2')
-let cellC3 = document.getElementById('c3')
-
+//Objects
 let toggleTurn =  'X';
+const createGame = () => {
+  let board = [
+    ['a1','a2','a3'],
+    ['b1','b2','b3'],
+    ['c1','c2','c3'] ]
+  return {board};
+};
+
+//  - - - - - - - - - - - - - - - - - - - - - - - -
+//behaviour
 
 function markSquare(cell_id){
   let currentCell = document.getElementById(cell_id);
-  // let toggleTurn ='X';
   let marker = document.createElement("span");
-
   marker.id = "marker";
   currentCell.appendChild(marker);
   marker.textContent = toggleTurn;
-
   changePlayer();
-
 };
 
 function changePlayer(){
@@ -31,3 +27,12 @@ function changePlayer(){
     toggleTurn = "X"
   }
 };
+
+// - - - - - - - - - - - - - - - - - - - - - - - -
+//SCRIPT
+
+const test = createGame();
+
+// 1. create game object
+// 2. Update game board when cells are marked
+  //    a. add PRIVATE function to game that changes board
