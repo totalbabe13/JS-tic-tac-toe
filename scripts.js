@@ -103,7 +103,7 @@ const createGame = () => {
     }
     console.log(board);
   };
-  function checkIfGameIsOver(player,turnNumber){
+  function checkIfGameIsOver(player,turnNumber) {
 
     let xVictory  = "X,X,X";
     let oVictory  = "O,O,O";
@@ -117,8 +117,7 @@ const createGame = () => {
     let diagonal2 = [board[0][2].a3,board[1][1].b2,board[2][0].c1]
     let combinations = [row1,row2,row3,column1,column2,column3,diagonal1,diagonal2];
 
-    console.log(turnNumber)
-    if(turnNumber > 8){
+    if(turnNumber > 8) {
       endGame = true;
       gameOverdisplay();
       console.log('tie')
@@ -126,14 +125,14 @@ const createGame = () => {
 
     for (var i = 0; i < combinations.length; i++) {
       if(xVictory === combinations[i].join() && player === "X"){
-      console.log('test works for X!')
+      console.log('Win for X!')
       endGame = true;
       gameOverdisplay();
       }
     }
     for (var i = 0; i < combinations.length; i++) {
       if(oVictory === combinations[i].join() && player === "O"){
-      console.log('test works for O!')
+      console.log('Win for O!')
       endGame = true;
       gameOverdisplay();
       }
@@ -181,9 +180,4 @@ const createGame = () => {
 };
 // - - - - - - - - - - - - - - - - - - - - - - - -
 //SCRIPT
-
 const testGame = createGame();
-
-// 1. create game object
-// 2. Update game board when cells are marked
-  //    a. add PRIVATE function to game that changes board
