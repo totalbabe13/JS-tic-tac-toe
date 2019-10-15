@@ -9,11 +9,11 @@ const createGame = () => {
     [{'a1': '_'},{'a2': '_'},{'a3': '_'}],
     [{'b1': '_'},{'b2': '_'},{'b3': '_'}],
     [{'c1': '_'},{'c2': '_'},{'c3': '_'}] ];
-
-
+//  - - - - - - - - - - - - - - - - - - - - - - - -
+//behaviour
   function markSquare(cell_id){
     let currentTurn = updateBoard(cell_id,toggleTurn);
-      if (currentTurn === true){
+      if (currentTurn === true && endGame === false){
 
         let currentCell = document.getElementById(cell_id);
         let marker = document.createElement("span");
@@ -104,7 +104,6 @@ const createGame = () => {
     }
     console.log(board);
   };
-
   function checkIfGameIsOver(player){
     if(numOfTurns > 8){
       endGame = true;
@@ -138,7 +137,6 @@ const createGame = () => {
       }
     }
   };
-
   function gameOverdisplay(){
     let gameOver = document.createElement("span");
     gameOver.id = "game-over";
@@ -146,14 +144,9 @@ const createGame = () => {
     let body = document.querySelector("body");
     body.appendChild(gameOver);
   };
-
-  return {markSquare, board, gameOverdisplay};
+//Public Access
+  return {markSquare};
 };
-
-//  - - - - - - - - - - - - - - - - - - - - - - - -
-//behaviour
-
-
 // - - - - - - - - - - - - - - - - - - - - - - - -
 //SCRIPT
 

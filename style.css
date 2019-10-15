@@ -33,7 +33,7 @@ time, mark, audio, video {
   background-color: blue;
   margin: 0em;
   position: absolute;
-  margin: 6em;
+  margin: 4em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -51,7 +51,7 @@ time, mark, audio, video {
 
 #game-over{
   color: white;
-  top: 9em;
+  top: 8.5em;
   left: 2em;
   position: absolute;
   font-size: 4em;
