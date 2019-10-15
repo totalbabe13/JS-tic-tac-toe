@@ -48,3 +48,12 @@ time, mark, audio, video {
   font-size: 7em;
   color: white;
 }
+
+#game-over{
+  color: white;
+  top: 9em;
+  left: 2em;
+  position: absolute;
+  font-size: 4em;
+  margin-bottom: -7em;
+}

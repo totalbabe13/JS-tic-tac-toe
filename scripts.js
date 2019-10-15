@@ -9,19 +9,11 @@ const createGame = () => {
     [{'b1': '_'},{'b2': '_'},{'b3': '_'}],
     [{'c1': '_'},{'c2': '_'},{'c3': '_'}] ];
 
-  let row1      = [board[0][0].a1,board[0][1].a1,board[0][2].a1]
-  let row2      = [board[1][0].b2,board[1][1].b2,board[1][2].b2]
-  let row3      = [board[2][0].c3,board[2][1].c3,board[2][2].c3]
-  let column1   = [board[0][0].a1,board[1][0].b1,board[2][0].c1]
-  let column2   = [board[0][1].a2,board[1][1].b2,board[2][1].c2]
-  let column3   = [board[0][2].a3,board[1][2].b3,board[2][2].c3]
-  let diagonal1 = [board[0][0].a1,board[1][1].b2,board[2][2].c3]
-  let diagonal2 = [board[2][0].a3,board[1][1].b2,board[0][2].c1]
-
 
   function markSquare(cell_id){
-    let currentTurn = updateBoard(cell_id,toggleTurn)
+    let currentTurn = updateBoard(cell_id,toggleTurn);
       if (currentTurn === true){
+        checkIfGameIsOver(toggleTurn);
         let currentCell = document.getElementById(cell_id);
         let marker = document.createElement("span");
         marker.className = "marker";
@@ -105,13 +97,45 @@ const createGame = () => {
     console.log(board);
   };
 
-  function checkIfGameIsOver(){
-    let row1 = board[0];
-    let row2 = board[1];
-    let row3 = board[2];
-  }
+  function checkIfGameIsOver(player){
+    let xVictory  = "X,X,X";
+    let oVictory  = "O,O,O";
+    let row1      = [board[0][0].a1,board[0][1].a2,board[0][2].a3]
+    let row2      = [board[1][0].b1,board[1][1].b2,board[1][2].b3]
+    let row3      = [board[2][0].c1,board[2][1].c2,board[2][2].c3]
+    let column1   = [board[0][0].a1,board[1][0].b1,board[2][0].c1]
+    let column2   = [board[0][1].a2,board[1][1].b2,board[2][1].c2]
+    let column3   = [board[0][2].a3,board[1][2].b3,board[2][2].c3]
+    let diagonal1 = [board[0][0].a1,board[1][1].b2,board[2][2].c3]
+    let diagonal2 = [board[0][2].a3,board[1][1].b2,board[2][0].c1]
+    let combinations = [row1,row2,row3,column1,column2,column3,diagonal1,diagonal2];
 
-  return {markSquare, board};
+    for (var i = 0; i < combinations.length; i++) {
+      if(xVictory === combinations[i].join() && player === "X"){
+      console.log('test works for X!')
+      endGame = true;
+      // gameOverdisplay();
+      }
+    }
+    for (var i = 0; i < combinations.length; i++) {
+      if(oVictory === combinations[i].join() && player === "O"){
+      console.log('test works for O!')
+      endGame = true;
+      // gameOverdisplay();
+      }
+    }
+  };
+
+  function gameOverdisplay(){
+    let gameOver = document.createElement("span");
+    gameOver.id = "game-over";
+    gameOver.textContent = "<- - GAME OVER - ->"
+    let body = document.getElementsByTagName("body");
+    body.appendChild(gameOver);
+    console.log(body);
+  };
+
+  return {markSquare, board, gameOverdisplay};
 };
 
 //  - - - - - - - - - - - - - - - - - - - - - - - -
