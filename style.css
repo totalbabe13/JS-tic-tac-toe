@@ -57,3 +57,16 @@ time, mark, audio, video {
   font-size: 4em;
   margin-bottom: -7em;
 }
+#play-again {
+  padding: 6px;
+  bottom: 1.3em;
+  border: 1px solid white;
+  color: white;
+  left: 4em;
+  position: relative;
+  font-size: 3em;
+  margin-bottom: -7em;
+}
+#play-again:hover {
+  background-color: #406af3;
+}

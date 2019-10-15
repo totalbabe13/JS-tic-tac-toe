@@ -12,6 +12,7 @@ const createGame = () => {
 //  - - - - - - - - - - - - - - - - - - - - - - - -
 //behaviour
   function markSquare(cell_id){
+    numOfTurns++;
     let currentTurn = updateBoard(cell_id,toggleTurn);
       if (currentTurn === true && endGame === false){
 
@@ -21,8 +22,8 @@ const createGame = () => {
         currentCell.appendChild(marker);
         marker.textContent = toggleTurn;
 
-        checkIfGameIsOver(toggleTurn);
-        //LOOK --> here you have to reset board,
+        checkIfGameIsOver(toggleTurn,numOfTurns);
+
 
         changePlayer();
 
@@ -34,8 +35,6 @@ const createGame = () => {
       } else if (toggleTurn === "O") {
         toggleTurn = "X"
       }
-      numOfTurns++;
-      console.log(numOfTurns);
   };
   function updateBoard(cell_id,playerMark) {
     switch (cell_id) {
@@ -104,11 +103,7 @@ const createGame = () => {
     }
     console.log(board);
   };
-  function checkIfGameIsOver(player){
-    if(numOfTurns > 8){
-      endGame = true;
-      gameOverdisplay();
-    }
+  function checkIfGameIsOver(player,turnNumber){
 
     let xVictory  = "X,X,X";
     let oVictory  = "O,O,O";
@@ -121,6 +116,13 @@ const createGame = () => {
     let diagonal1 = [board[0][0].a1,board[1][1].b2,board[2][2].c3]
     let diagonal2 = [board[0][2].a3,board[1][1].b2,board[2][0].c1]
     let combinations = [row1,row2,row3,column1,column2,column3,diagonal1,diagonal2];
+
+    console.log(turnNumber)
+    if(turnNumber > 8){
+      endGame = true;
+      gameOverdisplay();
+      console.log('tie')
+    }
 
     for (var i = 0; i < combinations.length; i++) {
       if(xVictory === combinations[i].join() && player === "X"){
@@ -139,13 +141,43 @@ const createGame = () => {
   };
   function gameOverdisplay(){
     let gameOver = document.createElement("span");
+    let playAgain = document.createElement("span");
+
     gameOver.id = "game-over";
+    playAgain.id = "play-again"
+    playAgain.setAttribute("onclick","testGame.resetGame(this.id)")
+
     gameOver.textContent = "GAME OVER"
+    playAgain.textContent = "Play Again?"
+
     let body = document.querySelector("body");
     body.appendChild(gameOver);
+    body.appendChild(playAgain);
+  };
+  function resetGame(){
+    toggleTurn =  'X';
+    numOfTurns = 0;
+    endGame = false;
+    board = [
+      [{'a1': '_'},{'a2': '_'},{'a3': '_'}],
+      [{'b1': '_'},{'b2': '_'},{'b3': '_'}],
+      [{'c1': '_'},{'c2': '_'},{'c3': '_'}] ];
+
+    let cells = document.getElementsByClassName("cell");
+    let gameOver = document.getElementById("game-over")
+    let playAgain = document.getElementById("play-again")
+    for (var i = 0; i < cells.length; i++) {
+      let marker = cells[i].lastChild;
+      if (marker){cells[i].removeChild(marker);}
+
+    }
+    let body = document.querySelector("body");
+    body.removeChild(playAgain);
+    body.removeChild(gameOver);
+  console.log(board);
   };
 //Public Access
-  return {markSquare};
+  return {markSquare,resetGame};
 };
 // - - - - - - - - - - - - - - - - - - - - - - - -
 //SCRIPT
