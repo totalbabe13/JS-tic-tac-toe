@@ -3,6 +3,7 @@
 
 const createGame = () => {
   let toggleTurn =  'X';
+  let numOfTurns = 0;
   let endGame = false;
   let board = [
     [{'a1': '_'},{'a2': '_'},{'a3': '_'}],
@@ -13,14 +14,19 @@ const createGame = () => {
   function markSquare(cell_id){
     let currentTurn = updateBoard(cell_id,toggleTurn);
       if (currentTurn === true){
-        checkIfGameIsOver(toggleTurn);
+
         let currentCell = document.getElementById(cell_id);
         let marker = document.createElement("span");
         marker.className = "marker";
         currentCell.appendChild(marker);
         marker.textContent = toggleTurn;
+
+        checkIfGameIsOver(toggleTurn);
+        //LOOK --> here you have to reset board,
+
         changePlayer();
-      } else {alert("test")}
+
+      } else {alert("Error Message: that is not a valid move.")}
     };
   function changePlayer(){
       if (toggleTurn === 'X'){
@@ -28,6 +34,8 @@ const createGame = () => {
       } else if (toggleTurn === "O") {
         toggleTurn = "X"
       }
+      numOfTurns++;
+      console.log(numOfTurns);
   };
   function updateBoard(cell_id,playerMark) {
     switch (cell_id) {
@@ -98,6 +106,11 @@ const createGame = () => {
   };
 
   function checkIfGameIsOver(player){
+    if(numOfTurns > 8){
+      endGame = true;
+      gameOverdisplay();
+    }
+
     let xVictory  = "X,X,X";
     let oVictory  = "O,O,O";
     let row1      = [board[0][0].a1,board[0][1].a2,board[0][2].a3]
@@ -114,14 +127,14 @@ const createGame = () => {
       if(xVictory === combinations[i].join() && player === "X"){
       console.log('test works for X!')
       endGame = true;
-      // gameOverdisplay();
+      gameOverdisplay();
       }
     }
     for (var i = 0; i < combinations.length; i++) {
       if(oVictory === combinations[i].join() && player === "O"){
       console.log('test works for O!')
       endGame = true;
-      // gameOverdisplay();
+      gameOverdisplay();
       }
     }
   };
@@ -129,10 +142,9 @@ const createGame = () => {
   function gameOverdisplay(){
     let gameOver = document.createElement("span");
     gameOver.id = "game-over";
-    gameOver.textContent = "<- - GAME OVER - ->"
-    let body = document.getElementsByTagName("body");
+    gameOver.textContent = "GAME OVER"
+    let body = document.querySelector("body");
     body.appendChild(gameOver);
-    console.log(body);
   };
 
   return {markSquare, board, gameOverdisplay};
